@@ -1,41 +1,77 @@
 const Vehiculo = require("../models/Vehiculo");
 const Registro = require("../models/Registro");
+const Usuario = require("../models/Usuario");
+const Celda = require("../models/Celda");
+
 
 class RegistroController {
 
     static async registrarEntrada(req, res) {
+
         try {
 
-            const { placa } = req.body;
+            const { placa, identificacion } = req.body;
 
+            // 🔍 Buscar usuario
+            const usuario = await Usuario.buscarPorIdentificacion(identificacion);
+
+            if (!usuario) {
+                return res.status(404).json({
+                    mensaje: "Usuario no registrado"
+                });
+            }
+
+            // 🔍 Buscar vehículo
             let vehiculo = await Vehiculo.buscarPorPlaca(placa);
 
             let idVehiculo;
 
             if (!vehiculo) {
-                idVehiculo = await Vehiculo.crearVehiculo(placa);
+                idVehiculo = await Vehiculo.crearVehiculo(placa, usuario.id_usuario);
             } else {
                 idVehiculo = vehiculo.id_vehiculo;
             }
 
+            // 🚫 Validar si ya está dentro
             const dentro = await Registro.vehiculoDentro(idVehiculo);
 
             if (dentro) {
                 return res.status(400).json({
-                mensaje: "El vehículo ya se encuentra dentro del parqueadero"
+                    mensaje: "El vehículo ya está dentro"
                 });
             }
-            const idRegistro = await Registro.registrarEntrada(idVehiculo);
+
+            // 🔍 Buscar celda libre
+            const celda = await Celda.obtenerCeldaLibre();
+
+            if (!celda) {
+                return res.status(400).json({
+                    mensaje: "No hay celdas disponibles"
+                });
+            }
+
+            // 🔒 Ocupar celda
+            await Celda.ocuparCelda(celda.id_celda);
+
+            // 🚗 Registrar entrada con celda
+            const idRegistro = await Registro.registrarEntrada(
+                idVehiculo,
+                celda.id_celda
+            );
 
             res.json({
-                mensaje: "Entrada registrada correctamente",
+                mensaje: `Entrada registrada - Celda asignada: ${celda.numero}`,
                 idRegistro
             });
 
         } catch (error) {
+
             console.error(error);
+
             res.status(500).json({ error: "Error al registrar entrada" });
+
         }
+
     }
 
 
@@ -51,6 +87,17 @@ class RegistroController {
                     mensaje: "Vehículo no encontrado"
                 });
             }
+            // 🔍 Obtener registro activo
+            const registro = await Registro.obtenerRegistroActivo(vehiculo.id_vehiculo);
+
+            if (!registro) {
+                return res.status(400).json({
+                    mensaje: "No hay registro activo"
+                });
+            }
+            // 🔓 Liberar celda
+            await Celda.liberarCelda(registro.id_celda);
+
 
             const resultado = await Registro.registrarSalida(
                 vehiculo.id_vehiculo,
@@ -64,7 +111,7 @@ class RegistroController {
             }
 
             res.json({
-                mensaje: "Salida registrada correctamente"
+                mensaje: "Salida registrada correctamente y celda liberda"
             });
 
         } catch (error) {

@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Entrada</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-
 <body>
-
     <div class="container">
-
         <h2>Registrar Entrada</h2>
 
-        <input type="text" id="placa" placeholder="Placa vehículo">
-
-        <br>
+        <div class="form-group">
+            <input type="text" id="placa" placeholder="Placa vehículo">
+            <input type="text" id="identificacion" placeholder="Identificación usuario">
+        </div>
 
         <button class="btn-entrada" onclick="registrarEntrada()">Registrar</button>
 
         <p id="mensaje"></p>
-
     </div>
     <script src="/js/entrada.js"></script>
-
 </body>
-
 </html>

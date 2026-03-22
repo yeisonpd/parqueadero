@@ -2,10 +2,11 @@ const db = require("../../db");
 
 class Registro {
 
-    static async registrarEntrada(idVehiculo) {
+    static async registrarEntrada(idVehiculo, idCelda) {
         const [result] = await db.query(
-            "INSERT INTO Registro (id_vehiculo, fecha_entrada) VALUES (?, NOW())",
-            [idVehiculo]
+            `INSERT INTO Registro (id_vehiculo, id_celda, fecha_entrada)
+            VALUES (?, ?, NOW())`,
+            [idVehiculo, idCelda]
         );
         return result.insertId;
     }
@@ -56,6 +57,18 @@ class Registro {
 
         return rows.length > 0;
 
+    }
+
+    static async obtenerRegistroActivo(idVehiculo) {
+
+        const [rows] = await db.query(
+            `SELECT * FROM Registro
+            WHERE id_vehiculo = ?
+            AND fecha_salida IS NULL`,
+            [idVehiculo]
+        );
+
+        return rows[0];
     }
 
 }

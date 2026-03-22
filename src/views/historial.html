@@ -1,44 +1,34 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-
 <body>
+    <div class="container">
+        <h2>Historial de Vehículos</h2>
 
-    <h2>Historial de Vehículos</h2>
-    <div style="margin-bottom:20px;">
+        <div class="form-group">
+            <input type="text" id="placaBuscar" placeholder="Buscar por placa">
+            <button class="btn-primary" onclick="buscarHistorial()">Buscar</button>
+            <button class="btn-secondary" onclick="cargarHistorial()">Mostrar todos</button>
+        </div>
 
-        <input type="text" id="placaBuscar" placeholder="Buscar por placa">
-
-        <button onclick="buscarHistorial()">Buscar</button>
-
-        <button onclick="cargarHistorial()">Mostrar todos</button>
-
+        <table>
+            <thead>
+                <tr>
+                    <th>Placa</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
     </div>
-    <table>
-
-        <thead>
-
-            <tr>
-                <th>Placa</th>
-                <th>Entrada</th>
-                <th>Salida</th>
-                <th>Observación</th>
-            </tr>
-
-        </thead>
-
-        <tbody id="tabla">
-
-        </tbody>
-
-    </table>
 
     <script src="/js/historial.js"></script>
-
 </body>
-
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autos Colombia</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Sistema Autos Colombia</h2>
+        <p>Panel de control</p>
+
+        <h2>Celdas</h2>
+        <div class="form-group">
+            <input id="numero" placeholder="Número celda">
+            <button onclick="crearCelda()">Crear</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaCeldas"></tbody>
+        </table>
+    </div>
+    <script src="/js/celdas.js"></script>
+</body>
+</html>

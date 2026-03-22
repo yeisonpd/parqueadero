@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autos Colombia</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Sistema Autos Colombia</h2>
+        <p>Panel de control</p>
+
+        <h2>Usuarios</h2>
+        <div class="form-group">
+            <input id="nombre" placeholder="Nombre">
+            <input id="identificacion" placeholder="Identificación">
+            <input id="telefono" placeholder="Teléfono">
+        </div>
+        <button onclick="crearUsuario()">Crear</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Identificación</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaUsuarios"></tbody>
+        </table>
+    </div>
+
+    <div id="modal" class="modal">
+
+        <div class="modal-content">
+
+            <h3>Editar Usuario</h3>
+
+            <input type="hidden" id="edit_id">
+
+            <input id="edit_nombre" placeholder="Nombre">
+            <input id="edit_identificacion" placeholder="Identificación">
+            <input id="edit_telefono" placeholder="Teléfono">
+
+            <br><br>
+
+            <button onclick="guardarCambios()">Guardar</button>
+            <button onclick="cerrarModal()">Cancelar</button>
+
+        </div>
+
+    </div>
+
+    <script src="/js/usuarios.js"></script>
+</body>
+</html>

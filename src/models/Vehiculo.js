@@ -10,10 +10,10 @@ class Vehiculo {
         return rows[0];
     }
 
-    static async crearVehiculo(placa) {
+    static async crearVehiculo(placa, id_usuario) {
         const [result] = await db.query(
-            "INSERT INTO Vehiculo (placa) VALUES (?)",
-            [placa]
+            "INSERT INTO Vehiculo (placa, id_usuario) VALUES (?, ?)",
+            [placa, id_usuario]
         );
         return result.insertId;
     }
