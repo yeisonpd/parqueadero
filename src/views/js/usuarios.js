@@ -36,6 +36,26 @@ async function crearUsuario(){
     cargarUsuarios();
 }
 
+async function buscarUsuario() {
+    const id = document.getElementById("idBuscar").value;
+    const res = await fetch(`/api/usuario/id?id=${id}`);
+    const data = await res.json();
+    
+    let tabla = `
+      <tr>
+        <td>${data.nombre}</td>
+        <td>${data.identificacion}</td>
+        <td>${data.telefono}</td>
+        <td>
+          <button onclick="eliminar(${data.id_usuario})">Eliminar</button>
+          <button onclick="abrirModal(${data.id_usuario}, '${data.nombre}', '${data.identificacion}', '${data.telefono}')">Editar</button>
+        </td>
+      </tr>`;
+    
+    document.getElementById("tablaUsuarios").innerHTML = tabla;
+}
+
+
 async function eliminar(id){
 
     await fetch(`/api/usuario/${id}`,{method:"DELETE"});

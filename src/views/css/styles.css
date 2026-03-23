@@ -103,6 +103,10 @@ table tr:nth-child(even) {
     background: #f9f9f9;
 }
 
+.pt {
+    margin-top: 10px;
+}
+
 /*modal*/
 .modal{
 display:none;

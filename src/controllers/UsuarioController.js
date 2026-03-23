@@ -75,6 +75,19 @@ class UsuarioController {
             res.status(500).json({ error: "Error al eliminar" });
         }
     }
+
+    static async buscarUsuario(req, res){
+        try {
+            const { id } = req.query;
+            const usuarios = await Usuario.buscarPorIdentificacion(id);
+            res.json(usuarios);
+
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Error al buscar historial" });
+        }
+    }
 }
 
 module.exports = UsuarioController;

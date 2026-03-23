@@ -15,4 +15,6 @@ router.put("/usuario/:id", UsuarioController.actualizarUsuario);
 //eliminar
 router.delete("/usuario/:id", UsuarioController.eliminarUsuario);
 
+router.get("/usuario/id", UsuarioController.buscarUsuario);
+
 module.exports = router;
