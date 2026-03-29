@@ -7,7 +7,7 @@ const PORT = 3000;
 const registroRoutes = require("./src/routers/registroRoutes");
 const usuarioRoutes = require("./src/routers/usuarioRoutes");
 const celdaRoutes = require("./src/routers/celdaRoutes");
-
+const pagoRoutes = require("./src/routers/pagoRoutes");
 
 app.use(express.static(path.join(__dirname,"src/views")));
 
@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", registroRoutes);
 app.use("/api", usuarioRoutes);
 app.use("/api", celdaRoutes);
+app.use("/api", pagoRoutes);
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

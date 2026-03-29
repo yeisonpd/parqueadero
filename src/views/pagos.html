@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Salida</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Pagos</h2>
+        <div class="form-group">
+            <input id="identificacion" placeholder="identificacion">
+            <input type="date" id="fecha_pago">
+            <input type="date" id="fecha_vencimiento">
+        </div>
+
+        <button onclick="crearPago()">Registrar Pago</button>
+
+        <div class="form-group pt">
+            <input id="buscar_identificacion" placeholder="Buscar por identificación">
+            <button class="btn-primary" onclick="buscarPago()">Buscar</button>
+            <button class="btn-secondary" onclick="cargar()">Mostrar Todo</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha Pago</th>
+                    <th>Vencimiento</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaPagos"></tbody>
+        </table>
+
+    </div>
+
+    <div id="modalPago" class="modal">
+    
+        <div class="modal-content">
+    
+            <h3>Editar Pago</h3>
+    
+            <input type="hidden" id="edit_pago_id">
+    
+            <input type="date" id="edit_fecha_pago">
+            <input type="date" id="edit_fecha_vencimiento">
+    
+            <br><br>
+    
+            <button onclick="guardarPago()">Guardar</button>
+            <button onclick="cerrarModalPago()">Cancelar</button>
+    
+        </div>
+    
+    </div>
+    <script src="/js/pagos.js"></script>
+</body>
+
+</html>

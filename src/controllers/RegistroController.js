@@ -2,7 +2,7 @@ const Vehiculo = require("../models/Vehiculo");
 const Registro = require("../models/Registro");
 const Usuario = require("../models/Usuario");
 const Celda = require("../models/Celda");
-
+const Pago = require("../models/Pago");
 
 class RegistroController {
 
@@ -38,6 +38,19 @@ class RegistroController {
             if (dentro) {
                 return res.status(400).json({
                     mensaje: "El vehículo ya está dentro"
+                });
+            }
+
+            
+            // 🔄 actualizar estados automáticamente
+            await Pago.actualizarEstados();
+
+            // 🔍 validar pago
+            const pago = await Pago.obtenerPagoActivo(usuario.id_usuario);
+
+            if (!pago || pago.estado === "Vencido") {
+                return res.status(400).json({
+                    mensaje: "Usuario con pago vencido o sin pago"
                 });
             }
 
