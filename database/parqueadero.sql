@@ -37,8 +37,37 @@ CREATE TABLE `celda` (
 
 LOCK TABLES `celda` WRITE;
 /*!40000 ALTER TABLE `celda` DISABLE KEYS */;
-INSERT INTO `celda` VALUES (1,1,'libre'),(2,2,'libre'),(3,3,'libre'),(4,4,'libre'),(6,5,'libre');
+INSERT INTO `celda` VALUES (1,1,'ocupada'),(2,2,'ocupada'),(3,3,'libre'),(4,4,'libre'),(6,5,'libre');
 /*!40000 ALTER TABLE `celda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pago`
+--
+
+DROP TABLE IF EXISTS `pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pago` (
+  `id_pago` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int DEFAULT NULL,
+  `fecha_pago` date NOT NULL,
+  `fecha_vencimiento` date NOT NULL,
+  `estado` enum('Vigente','Vencido') DEFAULT 'Vigente',
+  PRIMARY KEY (`id_pago`),
+  KEY `id_usuario` (`id_usuario`),
+  CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pago`
+--
+
+LOCK TABLES `pago` WRITE;
+/*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+INSERT INTO `pago` VALUES (2,3,'2026-03-28','2026-03-29','Vencido'),(3,2,'2026-03-28','2026-04-07','Vigente'),(4,1,'2026-03-30','2026-03-31','Vigente'),(5,4,'2026-03-30','2026-04-01','Vigente');
+/*!40000 ALTER TABLE `pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,7 +89,7 @@ CREATE TABLE `registro` (
   KEY `id_celda` (`id_celda`),
   CONSTRAINT `registro_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`),
   CONSTRAINT `registro_ibfk_2` FOREIGN KEY (`id_celda`) REFERENCES `celda` (`id_celda`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +98,7 @@ CREATE TABLE `registro` (
 
 LOCK TABLES `registro` WRITE;
 /*!40000 ALTER TABLE `registro` DISABLE KEYS */;
-INSERT INTO `registro` VALUES (1,1,1,'2026-03-21 17:04:10','2026-03-21 17:05:13',''),(2,2,1,'2026-03-21 19:00:26','2026-03-21 19:00:43','');
+INSERT INTO `registro` VALUES (1,1,1,'2026-03-21 17:04:10','2026-03-21 17:05:13',''),(2,2,1,'2026-03-21 19:00:26','2026-03-21 19:00:43',''),(3,3,1,'2026-03-23 14:57:59','2026-03-23 14:59:16',''),(4,1,1,'2026-03-24 00:27:43','2026-03-24 00:28:42',''),(5,3,2,'2026-03-24 00:28:12','2026-03-24 00:28:48',''),(6,3,1,'2026-03-30 15:48:58',NULL,NULL),(7,4,2,'2026-03-30 16:02:19',NULL,NULL);
 /*!40000 ALTER TABLE `registro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +117,7 @@ CREATE TABLE `usuario` (
   `estado` int DEFAULT '1',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `identificacion` (`identificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +126,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Juan','123456','3001234567',1),(2,'nando','123','1234',1);
+INSERT INTO `usuario` VALUES (1,'Juan','123456','3001234567',1),(2,'nando','123','1234',1),(3,'ferna','1234','4849',1),(4,'yeison','7879','7879',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +145,7 @@ CREATE TABLE `vehiculo` (
   UNIQUE KEY `placa` (`placa`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +154,7 @@ CREATE TABLE `vehiculo` (
 
 LOCK TABLES `vehiculo` WRITE;
 /*!40000 ALTER TABLE `vehiculo` DISABLE KEYS */;
-INSERT INTO `vehiculo` VALUES (1,'x432',1),(2,'45',2);
+INSERT INTO `vehiculo` VALUES (1,'x432',1),(2,'45',2),(3,'4546',3),(4,'7879',4);
 /*!40000 ALTER TABLE `vehiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -138,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-21 20:15:09
+-- Dump completed on 2026-03-30 16:07:18
